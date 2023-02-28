@@ -1,19 +1,13 @@
-const { ErrorService, ctrlWrapper } = require("../utils");
-const {
-  listContacts,
-  getContactById,
-  addContact,
-  updateContact,
-  removeContact,
-} = require("../models/contacts");
+const { ctrlWrapper, ErrorService } = require("../utils");
+const { Contact } = require("../models/contact");
 
 const getContactsList = async (_, res) => {
-  res.json(await listContacts());
+  res.json(await Contact.find({}, "-createAt -updateAt"));
 };
 
 const getContact = async (req, res) => {
   const { id } = req.params;
-  const data = await getContactById(id);
+  const data = await Contact.findById(id);
   if (!data) {
     throw ErrorService(404, "Not found");
   }
@@ -21,13 +15,22 @@ const getContact = async (req, res) => {
 };
 
 const addNewContact = async (req, res) => {
-  const result = await addContact(req.body);
+  const result = await Contact.create(req.body);
   res.status(201).json(result);
 };
 
 const changeContact = async (req, res) => {
   const { id } = req.params;
-  const result = await updateContact(id, req.body);
+  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
+  if (!result) {
+    throw ErrorService(404, "Not found");
+  }
+  res.json(result);
+};
+
+const updateStatusContact = async (req, res) => {
+  const { id } = req.params;
+  const result = await Contact.findByIdAndUpdate(id, req.body, { new: true });
   if (!result) {
     throw ErrorService(404, "Not found");
   }
@@ -36,7 +39,7 @@ const changeContact = async (req, res) => {
 
 const deleteContact = async (req, res) => {
   const { id } = req.params;
-  const result = await removeContact(id);
+  const result = await Contact.findByIdAndRemove(id);
   if (!result) {
     throw ErrorService(404, "Not found");
   }
@@ -49,4 +52,5 @@ module.exports = {
   addNewContact: ctrlWrapper(addNewContact),
   changeContact: ctrlWrapper(changeContact),
   deleteContact: ctrlWrapper(deleteContact),
+  updateStatusContact: ctrlWrapper(updateStatusContact),
 };
