@@ -6,10 +6,10 @@ const {
   changeContact,
   deleteContact,
   updateStatusContact,
-} = require("../../controllers/contacts");
+} = require("../../controllers");
 const { validating, isValidId } = require("../../middlewares");
 
-const { schemas } = require("../../models/contact");
+const { schemas } = require("../../models");
 const router = express.Router();
 
 router.get("/", getContactsList);

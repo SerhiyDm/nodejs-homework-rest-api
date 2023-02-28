@@ -1,6 +1,5 @@
-const ErrorService = require("./ErrorService");
+const { ErrorService, mongooseErrorHandler } = require("./errors");
 const ctrlWrapper = require("./tryCatchUtil");
-const mongooseErrorHandler = require("./mongooseErrorHandler");
 
 module.exports = {
   ErrorService,
