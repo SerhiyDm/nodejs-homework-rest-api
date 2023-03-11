@@ -5,7 +5,6 @@ const { User } = require("../models");
 const { SECRET_KEY } = process.env;
 
 const authenticate = async (req, res, next) => {
-  console.log(req.rawHeaders.find((el) => el.includes("Bearer")));
   if (!req.rawHeaders.find((el) => el.includes("Bearer"))) {
     next(ErrorService(401));
     return;
