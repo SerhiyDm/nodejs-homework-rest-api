@@ -5,6 +5,8 @@ const getCurrent = require("./getCurrent");
 const logOut = require("./logOut");
 const updateSubdiscriptionStatus = require("./updateSubdiscriptionStatus");
 const setAvatar = require("./setAvatar");
+const verifyEmail = require("./verifyEmail");
+const resendVerifyEmail = require("./resendVerifyEmail");
 
 const userControllers = {
   setAvatar: ctrlWrapper(setAvatar),
@@ -13,5 +15,7 @@ const userControllers = {
   getCurrent: ctrlWrapper(getCurrent),
   logOut: ctrlWrapper(logOut),
   updateSubdiscriptionStatus: ctrlWrapper(updateSubdiscriptionStatus),
+  verifyEmail: ctrlWrapper(verifyEmail),
+  resendVerifyEmail: ctrlWrapper(resendVerifyEmail),
 };
 module.exports = userControllers;

@@ -28,7 +28,12 @@ router.post(
   validating(userJoiSchemas.loginSchema),
   userControllers.signIn
 );
-
+router.post(
+  "/verify",
+  validating(userJoiSchemas.emailSchema),
+  userControllers.resendVerifyEmail
+);
+router.get("/verify/:verificationToken", userControllers.verifyEmail);
 router.get("/current", authenticate, userControllers.getCurrent);
 
 router.post("/logout", authenticate, userControllers.logOut);
