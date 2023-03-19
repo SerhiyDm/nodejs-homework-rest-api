@@ -1,7 +1,8 @@
 const express = require("express");
 const { userJoiSchemas } = require("../../models");
-const { validating, authenticate, upload } = require("../../middlewares");
+const { validating, authenticate } = require("../../middlewares");
 const { userControllers } = require("../../controllers");
+const { uploadImg } = require("../../services");
 const router = express.Router();
 
 router.patch(
@@ -13,7 +14,7 @@ router.patch(
 router.patch(
   "/avatars",
   authenticate,
-  upload.single("avatar"),
+  uploadImg.single("avatar"),
   userControllers.setAvatar
 );
 
