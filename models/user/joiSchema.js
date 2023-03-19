@@ -7,6 +7,10 @@ const registerSchema = Joi.object({
   password: Joi.string().min(7).required(),
 });
 
+const emailSchema = Joi.object({
+  email: Joi.string().pattern(dataRegexpEmail).required(),
+});
+
 const loginSchema = Joi.object({
   email: Joi.string().pattern(dataRegexpEmail).required(),
   password: Joi.string().min(7).required(),
@@ -18,6 +22,7 @@ const changeSubscriptionStatusSchema = Joi.object({
 });
 
 const schemas = {
+  emailSchema,
   registerSchema,
   loginSchema,
   changeSubscriptionStatusSchema,
